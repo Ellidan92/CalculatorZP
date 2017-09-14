@@ -1,1 +1,140 @@
-
+import java.awt.BorderLayout;//Импортируем из стандартной графической библиотеки awt, менеджер компановки BorderLayout, располагающий компоненты по граицам и в центре объекта.
+import java.awt.FlowLayout;//Импортируем из стандартной графической библиотеки awt, менеджер компановки FlowLayout, располагающий компоненты по оси х до границы объекта.
+import java.awt.GridLayout;////Импортируем из стандартной графической библиотеки awt, менеджер компановки GridLayout, располагающий компоненты объекта в виде таблицы.
+import javax.swing.BoxLayout;//Импортируем из стандартной графической библиотеки swing, менеджер компановки BoxLayout, располагающий компоненты по осям х и y до границы объекта.
+import java.awt.Dimension;//Импортируем из стандартной графической библиотеки awt, класс Dimension инкапсулирующий длинну и ширину компонента, для того чтобы задать размер компонента.
+import javax.swing.JFormattedTextField;//Импортируем из графической библиотеки swing, форматируемое текстовое поле JFormattedTextField, которое потребуется  для установки даты.
+import javax.swing.BorderFactory;//Импортируем из графической библиотеки swing, класс BorderFactory при помощи которого устанавливаются границы объекта.
+import javax.swing.JPanel;//Импортируем из графической библиотеки swing, класс JPanel при помощи которого создаются панели для графических компонентов.
+import javax.swing.JScrollPane;//Импортируем из графической библиотеки swing, класс JScrollPane при помощи которого создается полоса прокрутки компонента.
+import javax.swing.JTextField;//Импортируем из графической библиотеки swing, класс JTextField при помощи которого создаем текстовые поля.
+import javax.swing.JLabel;//Импортируем из графической библиотеки swing, класс JLabel при помощи которого создаются надписи компонента.
+import javax.swing.JButton;//Импортируем из графической библиотеки swing, класс JButton при помощи которого создаются кнопки компонента.
+import javax.swing.JFrame;//Импортируем из графической библиотеки swing, класс JFrame при помощи которого создается окно компонента.
+import javax.swing.JCheckBox;//Импортируем из графической библиотеки swing, класс JCheckBox при помощи которого создается флаговая кнопка.
+import javax.swing.border.TitledBorder;//Импортируем из графической библиотеки swing, класс TitledBorder при помощи которого создаетются границы компонента с заголовком.  
+import java.awt.event.ItemEvent;//Импортируем из графической библиотеки awt, ItemEvent сематическое событие которое указывает на то был ли выбран элемент.
+import java.awt.event.ItemListener;//Импортируем из графической библиотеки awt, обработчик события ItemListener при помощи которого можно задать какое либо действие на нажатие CheckBox.
+import java.util.Date;//Импортируем из библиотеки  Util, класс Date для обработки даты и времени. 
+//Создаем класс в котором будет содержаться графическая часть калькулятора
+public class CalculatorZP {
+	JFrame Frame ;//Создаем окно для калькулятора
+	JPanel Panel,Body,Panel1,Panel2,Panel3,Panel4,Panel5,Panel6,Panel7,Panel8,Panel9,Panel10,Panel11,Panel12,Panel13,Panel14,Panel16,Panel17,Panel18;//Создаем Панели на которых будут располагатся поля для ввода и вывода информации и кнопки-флажки для выбора расчетов.
+	JFormattedTextField Int1,Int2,IllnessDayT1,IllnessDayT2;//Создаем текстовые форматируемые текстовые поля для ввода данных в калькулятор.
+	JTextField HourlyT,SalaryT,PieceworkT,OvertimeT,WeekendT,ChildT,YearIT,YearIIT,ExperienceT,DistrictCoeffT,FIO ;//Создаем поля для ввода данных в калькулятор.
+	JCheckBox HourlyB,SalaryB,PieceworkB,OvertimeY,OvertimeN,WeekendY,WeekendN,DistrictCoeffY,DistrictCoeffN,STDTaxationY,STDTaxationN,InvalidY,InvalidN,IllnessY,IllnessN;//Создаем флажки для выбора расчетов калькулятора.
+	JLabel YearI,YearII,InterLab1,InterLab2,Illness1,Illness2;//Создаем надписи для полей ввода данных.
+	JButton Start;//Создаем кнопку при нажатии которой происходит подсчет введеных данных.
+	JScrollPane Scroll;//Создаем полосу прокрутки для компонентов которые непомещаются в JFrame.
+	CalculatorZPEngine Eng = new CalculatorZPEngine(this);//Создаем экземпляр класса CalculatorZPEngine того чтобы использовать слушатель событий ActionListener кнопки Start и метод ActionPerformed для расчетов введенных данных. 
+	//Создаем конструктор класса CalculatorZP для того чтобы при создании класса инициализировать все переменные.
+	CalculatorZP(){
+		Frame = new JFrame("Зарплатный калькулятор");//Определяем окно для калькулятора.
+		Panel = new JPanel();//Панель на которой будут располагаться все панели для ввода данных.
+		Body = new JPanel();//Панель к которой будет закреплена полоса прокрутки JScrollPane.
+		Panel1 = new JPanel();//Панель для введения интервала расчетов.
+		Panel2 = new JPanel();//Панель для введения формы расчета. 
+		Panel3 = new JPanel();//Панель для введения данных о сверхурочной работе. 
+		Panel4 = new JPanel();//Панель для введения данных о работе в выходные дни. 
+		Panel5 = new JPanel();//Панель с текстовым полем для введения данных районного коефициента. 
+		Panel6 = new JPanel();//Панель с 2-мя кнопками-флажками для того ,чтобы сделать видимой панель для введения значений районного коэффициента.
+		Panel7 = new JPanel();// Эта панель содержит 3 панели для введения данных о налоговом вычете.
+		Panel8 = new JPanel();//Панель с 2-мя кнопками-флажками для того ,чтобы при необходимости налогового вычета сделать видимой панели размещенные на Panel7 для введения данных.
+		Panel9 = new JPanel();//Панель с текстовым полем для ввода данных о колличестве детей работника.
+		Panel10 = new JPanel();//Панель с 2-мя кнопками-флажками для того, чтобы добавить к налоговому вычету вычет на инвалидность для работника.
+		Panel11 = new JPanel();//Панель содержащая в себе панели для ввода данных больничного листа.
+		Panel12 = new JPanel();//Панель для введения инициалов работника.
+		Panel13 = new JPanel();//Панель введения интервала для расчета больничного листа.
+		Panel14 = new JPanel();//Панель для введения средней зарплаты за последнии 2 года.
+		Panel16 = new JPanel();//Панель для введения  страхового стажа. 
+		Panel17 = new JPanel();//Панель с 2-мя кнопками-флажками для того, чтобы сделать видимыми панели для ввода данных больничного листа.
+		Panel18 = new JPanel();//Панель содержащая кнопку для произведения расчетов по выше указанным данным.
+		//Присваиваем параметры для тектовых полей отформатированных под ввод даты .
+		//Присваививаем полю маску ввода даты.
+		Int1 = new JFormattedTextField(Eng.dateFormatter);
+		Int2 = new JFormattedTextField(Eng.dateFormatter);
+		IllnessDayT1 = new JFormattedTextField(Eng.dateFormatter);
+		IllnessDayT2 = new JFormattedTextField(Eng.dateFormatter);
+		//Присваиваем колличество символов для текстового поля.
+		Int1.setColumns(16);
+		Int2.setColumns(16);
+		IllnessDayT1.setColumns(16);
+		IllnessDayT2.setColumns(16);
+		//Присваиваем текстовому полю значение сегодняшнего дня.
+		Int1.setValue(new Date()); 
+		Int2.setValue(new Date());
+		IllnessDayT1.setValue(new Date()); 
+		IllnessDayT2.setValue(new Date()); 
+		//Присваиваем текстовому выравнивание текста фпо центру.
+		Int1.setHorizontalAlignment(JFormattedTextField.CENTER);
+		Int2.setHorizontalAlignment(JFormattedTextField.CENTER);
+		IllnessDayT1.setHorizontalAlignment(JFormattedTextField.CENTER);
+		IllnessDayT2.setHorizontalAlignment(JFormattedTextField.CENTER);
+		//Присваиваем размер полям.
+		IllnessDayT1.setMinimumSize(new Dimension(20,10));
+		IllnessDayT2.setMinimumSize(new Dimension(20,10));
+		//Присваиваем параметры поля текст,колличество символов,размера поля,а также добавляем слушателя событий KeyListener, для того чтобы небыло возможности вводить иные данные кроме цифр и ".".
+		//HourlyT используется для введения данных почасовой оплаты(руб./ч).
+		HourlyT = new JTextField("0",10);
+		HourlyT.addKeyListener(Eng.key);
+		//SalaryT используется для введения данных об окладе.
+		SalaryT = new JTextField("0",10);
+		SalaryT.addKeyListener(Eng.key);
+		//PieceworkT используется для введения данных о сдельной оплате.
+		PieceworkT = new JTextField("0",10);
+		PieceworkT.addKeyListener(Eng.key);
+		//OvertimeT используется для введения данных о сверхурочной работе.
+		OvertimeT =  new JTextField("0",18);
+		OvertimeT.setMaximumSize(new Dimension(390,20));
+		OvertimeT.addKeyListener(Eng.key);
+		//WeekendT используется для введения данных о работе в выходные дни.
+		WeekendT =  new JTextField("0",10);
+		WeekendT.setMaximumSize(new Dimension(390,20));
+		WeekendT.addKeyListener(Eng.key);
+		//DistrictCoeffT используется для введения районного коэффициента.
+		DistrictCoeffT =  new JTextField("1.15",19);
+		DistrictCoeffT.setMaximumSize(new Dimension(390,20));
+		DistrictCoeffT.addKeyListener(Eng.key);
+		//ChildT используется для введения данных о количестве детей.
+		ChildT =  new JTextField("0",18);
+		ChildT.setMaximumSize(new Dimension(200,20));
+		ChildT.addKeyListener(Eng.key);
+		// FIO используется для введения инициалов работника.
+		FIO = new JTextField() ;
+		FIO.setMaximumSize(new Dimension(390,20));
+		//YearIT используется для введения зарплаты работника за предпоследний год работы.
+		YearIT = new JTextField("0",10);
+		YearIT.addKeyListener(Eng.key);
+		//YearIIT используется для введения зарплаты работника за последний год работы.
+		YearIIT = new JTextField("0",10);
+		YearIIT.addKeyListener(Eng.key);
+		//ExperienceT используется для введения страхового стажа.
+		ExperienceT = new JTextField("0",17);
+		ExperienceT.addKeyListener(Eng.key);
+		//Присвоение кнопкам-флажкам надписей.
+		HourlyB = new JCheckBox("1.Почасовая(р/ч.)");
+		SalaryB = new JCheckBox("2.Оклад(р.)");
+		PieceworkB = new JCheckBox("3.Сдельная(р.)");
+		OvertimeY = new JCheckBox("1.Да");
+		OvertimeN = new JCheckBox("2.Нет");
+		WeekendY = new JCheckBox("1.Да");
+		WeekendN = new JCheckBox("2.Нет");
+		DistrictCoeffY = new JCheckBox("1.Да");
+		DistrictCoeffN = new JCheckBox("2.Нет");
+		STDTaxationY = new JCheckBox("1.Да");
+		STDTaxationN = new JCheckBox("2.Нет");
+		InvalidY = new JCheckBox("1.Да");
+		InvalidN = new JCheckBox("2.Нет");
+		IllnessY = new JCheckBox("1.Да");
+		IllnessN = new JCheckBox("2.Нет");
+		IllnessY.setSize(420,20);
+		IllnessN.setSize(420,20);
+		//Присвоение текста для надписи JLabel.
+		YearI = new JLabel("Сумма заработной платы за I год:");
+		YearII = new JLabel("Сумма заработной платы за II год:");
+		InterLab1 = new JLabel(" c:");
+		InterLab2 = new JLabel(" по:");
+		Illness1 = new JLabel("c:");
+		Illness2= new JLabel("по:");
+		Start = new JButton("Расчитать");//Присвоение кнопке Start названия.
+		Scroll = new JScrollPane(Panel);//Добавление JScrollPane к панили Panel.
