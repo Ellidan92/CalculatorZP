@@ -1,0 +1,162 @@
+import java.awt.event.ActionEvent;//Импортируем из стандартной графической библиотеки awt,класс ActionEvent для обработки событий ActionListener.
+import java.awt.event.ActionListener;//Импортируем из стандартной графической библиотеки awt,класс обработчик события ActionListener.
+import java.awt.event.KeyAdapter;//Импортируем из стандартной графической библиотеки awt,обработчик события KeyAdapter.
+import java.awt.event.KeyEvent;//Импортируем из стандартной графической библиотеки awt, класс KeyEvent для обработки события KeyAdapter.
+import java.text.DateFormat;//Импортируем из библиотеки text, класс DateFormat для создания маски ввода даты. 
+import java.text.SimpleDateFormat;//Импортируем из библиотеки text, класс SimpleDateFormat для создания маски ввода даты.
+import java.util.Calendar;//Импортируем из библиотеки util, класс Calendar для создания переменных типа Calendar.
+import java.util.Date;//Импортируем из библиотеки util, класс Date для создания переменных типа Date.
+import java.util.GregorianCalendar;//Импортируем из библиотеки util, класс GregorianCalendar для создания переменных типа GregorianCalendar.
+import javax.swing.JOptionPane;//Импортируем из граффической библиотеки swing, класс JOptionPane для ввывода сообщения. 
+import javax.swing.JTextField;//Импортируем из граффической библиотеки swing, класс JTextField для задачи условия в обработчике событий KeyAdapter.
+import javax.swing.text.DateFormatter;//Импортируем из граффической библиотеки swing, класс DateFormatter для отображения маски ввода даты.
+//Создаем класс для расчетов зарплатного калькулятора.
+public class CalculatorZPEngine implements ActionListener{
+	//Создаем переменные класса.
+	//Создаем маску для ввода даты.
+	 DateFormat date = new SimpleDateFormat("dd.MM.yyyy, EEE");
+	 DateFormatter dateFormatter = new DateFormatter(date);
+	 CalculatorZP zp ;//Создаем экземпляр класса  CalculatorZP для того чтобы передавать переменные из класса в класс.
+	 //Создаем переменные типа  Date для перевода текстового значения в формат даты.
+	 Date	parsingDate;
+	 Date	parsingDate1;
+	 Date	parsingDate2;
+	 Date	parsingDate3;
+	 int invalid;//Создаем переменную для хранения значения вычета на инвалида.
+	 //Создаем обработчик событий для нажатых клавиш, если нажата не "0-9" и не "."то обработчик недаст напечатать данный символ в текстовом поле,и не даст напечатать сивол "." если он нажат во 2 раз.
+	 KeyAdapter key = new KeyAdapter(){
+			public void keyTyped(KeyEvent e){
+				char c = e.getKeyChar();
+				if (((c< '0')||(c>'9'))&&(c != '.')||((c=='.')&&((JTextField)e.getSource()).getText().indexOf(".")>=0)){
+					e.consume();
+				}	
+		}
+		};
+		//Создаем конструктор класса CalculatorZPEngine для обмена переменными и задания параметров для маски даты.
+	 CalculatorZPEngine(CalculatorZP zp){
+		 this.zp = zp;
+		 dateFormatter.setAllowsInvalid(false);
+		 dateFormatter.setOverwriteMode(true);
+	 }
+	 //Метод actionPerformed исполняется тогда когда нажата кнопка Start.
+	public void actionPerformed(ActionEvent e){
+		//Присваиваем String переменным значения текстовых полей. 
+		String st = zp.Int1.getText();
+		String st1 = zp.Int2.getText();
+		String st2 = zp.HourlyT.getText();
+		String st3 = zp.SalaryT.getText();
+		String st4 = zp.PieceworkT.getText();
+		String st5 = zp.OvertimeT.getText();
+		String st6 = zp.WeekendT.getText();
+		String st7 = zp.DistrictCoeffT.getText();
+		String st8 = zp.ChildT.getText();
+		String st9 = zp.IllnessDayT1.getText();
+		String st10 = zp.IllnessDayT2.getText();
+		String st11 = zp.YearIT.getText();
+		String st12 = zp.YearIIT.getText();
+		String st13 = zp.ExperienceT.getText();
+		//Переводим String переменные которым присвоино значения даты в переменные типа Data.
+				    try{
+					parsingDate = date.parse(st);
+					parsingDate1 = date.parse(st1);
+					parsingDate2 = date.parse(st9);
+					parsingDate3 = date.parse(st10);
+					}catch (Exception e1){	
+					}
+				    //Вычисляем выходные дни.
+			    	Calendar startDate = GregorianCalendar.getInstance();//Создаем переменную типа Calendar которая будет началом отсчета.
+			        Calendar endDate = GregorianCalendar.getInstance();//Создаем переменную типа Calendar которая будет окончанием отсчета.
+			        startDate.setTime(parsingDate);//присваиваем переменным значение текстовых полей 
+			        endDate.setTime(parsingDate1); 		
+			        int wkd = 0;//Создаем переменную в которой хранится значения выходных дней
+			        //Создаем цикл с условием, что он будет прибавлять к startDate по 1 дню пока не достигнет endDate и присваивать каждый раз +1 к текущему значению wkd если startDate будет = субботе или воскресению.
+			        while (startDate.before(endDate)) {
+			           if (startDate.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY||startDate.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) {
+			               wkd++;
+			            }
+			  startDate.add(Calendar.DAY_OF_MONTH, 1);
+			        }
+		            //Вычисляем рабочие дни
+			        long dif =  parsingDate1.getTime()- parsingDate.getTime();//Создаем переменную dif для того чтобы с помощью метода getTime получить значение  в милисекундах от 1.1.1970 до разности введенных дат.
+			        int days = (int)(dif/(24*60*60*1000)-wkd);//Переводим из милисекунд в дни получившуюся разность дат.
+			        int daysw =days;//Создаем переменную для хранения колличества рабочих дней в месяце.
+				    //Получаем районный коэффициент 
+			        float DisCoeff = Float.parseFloat(st7);
+				    //Расчитываем налоговый вычет на ребенка
+				    int Child = Integer.parseInt(st8);//Создаем переменую хранящую значение количества детей
+				    int VCH;//Создаем переменную которая хранит сумму вычета на детей
+				    //Задаем условие если колличество детей менее 3 то налоговый вычет на каждого ребенка составит 1400(руб), если детей 3 и больше то вычет на 3 и последующего ребенка составит 3000(руб).  
+				    if(Child < 3){
+				    	VCH = 1400*Child;
+				    }
+				    else if (Child >= 3){
+				    	VCH = 2800 + (3000*(Child - 2));
+				    }
+				    else{
+				   VCH = 0; 	
+				    }
+				    //Создаем переменную invalid которая хранит значение вычета на инвалида.
+				    float Nalogv = VCH + invalid;
+				    //Расчитываем дни болезни 
+		            long ill =  parsingDate3.getTime()- parsingDate2.getTime();//Создаем переменную dif для того чтобы с помощью метода getTime получить значение  в милисекундах от 1.1.1970 до разности введенных дат.
+		            int illdays = (int)(ill/(24*60*60*1000));//Переводим из милисекунды в дни получившуюся разность дат.
+		            int wkdI = 0;//Переменная хранящая колличество выходных дней которые совпадают с днями больничного.
+				   	Calendar startDateI = GregorianCalendar.getInstance();//Создаем переменную типа Calendar которая будет началом отсчета.
+				    Calendar endDateI = GregorianCalendar.getInstance();//Создаем переменную типа Calendar которая будет окончанием отсчета.
+			        startDateI.setTime(parsingDate2);//присваиваем переменным значение текстовых полей   
+			        endDateI.setTime(parsingDate3); 
+			        //Создаем цикл с условием, что он будет прибавлять к startDateI по 1 дню пока не достигнет endDateI и присваивать каждый раз +1 к текущему значению wkd если startDateI будет = субботе или воскресению.
+			        while (startDateI.before(endDateI)) {
+			           if (startDateI.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY||startDateI.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) {
+			                wkdI++;
+			            }
+			            startDateI.add(Calendar.DAY_OF_MONTH, 1);
+			        }
+
+			       if(daysw>=(illdays-wkdI)){ 
+			    	   
+			        	daysw = daysw-(illdays-wkdI);
+			        }
+			        else{
+			        	daysw = 0;
+			         }
+				    // Расчитываем среднюю заработную плату работника за последние 2 года.
+				    float avSalary = (Float.parseFloat(st11) + Float.parseFloat(st12))/730;//Создаем переменную которая хранит сумму текстовых полей заработную плату за последние 2 года.
+				    //Расчитываем страховой стаж
+				    float Exp = Float.parseFloat(st13);//Создаем переменную хранящюю колличество лет страхового стажа.
+				    //Задаем условие, если страховой стаж менее полу года то больничное пособие расcчитывается по МРОТ, если же стаж работника от полу года до 5 лет то работник получает больничное пособие в размере 60% от своей средней заработной платы за последние 2 года ,если стаж работника от 5 до 8 лет то работник получает больничное пособие в размере 80% от своей средней заработной платы за 2 последних года, если стаж работника более 8 лет он получает свою среднюю заработную плату за 2 года в качестве больничного пособия. 
+				    if (Exp >=0 && Exp < 0.5f  ){
+				    	avSalary = (7500.f*24.f)/730.f;
+				    	Exp = 1;
+				    	}
+				    else if(Exp >=0.5f && Exp <5 ){
+				    	Exp = 0.6f;
+				    }
+				    else if (Exp >=5&& Exp<8){
+				    Exp = 0.8f;
+				    }
+				    else if (Exp>=8){
+				    	Exp = 1;
+				    }
+				    //Расчитываем больничное пособие 
+				    float Illpoc = illdays*avSalary*Exp;
+				    //Расчитываем метод оплаты.
+				    float DaysH = Float.parseFloat(st2);//Оплата за 1 рабочий час при почасовой оплате труда HourlyТ.	
+				    float HourlyD = DaysH*(daysw * 8);//Оплата за daysw рабочих деней при почасовой оплате труда HourlyТ.
+				    float Salary = (Float.parseFloat(st3)/days)*daysw;//Оплата за daysw дней при окладе Salary.
+				    float SalaryH = (Salary/daysw)/8;//Оплата за 1 рабочий час при окладе Salary.
+				    float PieceW = Float.parseFloat(st4);//Оплата за выполненную работу PieceW .
+				    float Over = Float.parseFloat(st5)*((SalaryH+DaysH)*1.5f);//Оплата за 1 рабочий час при сверхурочной работе при почасовой оплате труда HourlyТ и при окладе SalaryТ.
+				    float Week = Float.parseFloat(st6)*((DaysH+SalaryH)*2);//Оплата за 1 рабочий час в выходные дни при почасовой оплате труда HourlyТ и при окладе SalaryТ.	
+				    float SalVotNal = ((HourlyD+Over+Week+Illpoc+Salary+PieceW))*DisCoeff;//Вычисляем зарплату без НДФС.	 
+				    float NDFL = (SalVotNal-Nalogv)/100*13;//Вычисляем НДФЛ.	
+				    float SalonH = SalVotNal-NDFL;//Зарплата с НДФЛ.
+				    //Массив содержащий данные для вывода при помощи класса JOptionPane создавая диалоговое окно методом showConfirmDialog.
+				 String [] Salon = new String[4] ; 
+				 Salon [0]= String.valueOf("Инициалы работника : "+zp.FIO.getText());
+				 Salon [1]= String.valueOf("Зарплата работника без НДФЛ : "+SalVotNal+" рублей");
+				 Salon [2]= String.valueOf("Величина НДС : "+NDFL+" рублей");
+				 Salon [3]= String.valueOf("Зарплата работника с НДФЛ : "+SalonH+" рублей");
+					JOptionPane.showConfirmDialog(null,Salon,"Зарплатный калькулятор",JOptionPane.PLAIN_MESSAGE);
+				}
+	}
