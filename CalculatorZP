@@ -299,3 +299,202 @@ Body.setLayout(new BorderLayout());//Добавление для панели Bo
 		HourlyT.setEnabled(false);
 		SalaryT.setEnabled(false);
 		PieceworkT.setEnabled(false);
+//Создаем ItemListener для каждой кнопки-флажка чтобы определить реакцию программы на ее нажатие.
+		//Определяем действия при нажатой кнопке-флажка отвечающей отображение панелей и полей почасовой оплаты. 
+		HourlyB.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(HourlyB.isSelected()){	
+					HourlyT.setEnabled(true);
+					SalaryB.setEnabled(false);
+					PieceworkB.setEnabled(false);
+					Panel3.setVisible(true);
+					Panel4.setVisible(true);
+				}		
+				else{
+					HourlyT.setEnabled(false);
+					SalaryB.setEnabled(true);
+					PieceworkB.setEnabled(true);
+					Panel3.setVisible(false);
+					Panel4.setVisible(false);
+					HourlyT.setText("0");
+				}
+			}
+		});
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей оплаты по окладу. 
+		SalaryB.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(SalaryB.isSelected()){	
+					SalaryT.setEnabled(true);
+					HourlyB.setEnabled(false);
+					PieceworkB.setEnabled(false);
+					Panel3.setVisible(true);
+					Panel4.setVisible(true);
+				}		
+				else{
+					SalaryT.setEnabled(false);
+					HourlyB.setEnabled(true);
+					PieceworkB.setEnabled(true);
+					Panel3.setVisible(false);
+					Panel4.setVisible(false);
+					SalaryT.setText("0");
+				}
+			}
+		});
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей сдельной оплаты. 
+		PieceworkB.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(PieceworkB.isSelected()){	
+					PieceworkT.setEnabled(true);
+					HourlyB.setEnabled(false);
+					SalaryB.setEnabled(false);
+				}		
+				else{
+					PieceworkT.setEnabled(false);
+					HourlyB.setEnabled(true);
+					SalaryB.setEnabled(true);
+					PieceworkT.setText("0");
+				}
+			}
+		});
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей сверхурочной работы. 
+		ItemListener ItemOv =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(OvertimeY.isSelected()){	
+					OvertimeT.setEnabled(true);
+					OvertimeN.setEnabled(false);
+				}		
+				else if(OvertimeN.isSelected()){	
+					OvertimeT.setEnabled(false);
+					OvertimeY.setEnabled(false);
+				}		
+				else{
+					OvertimeT.setEnabled(false);
+					OvertimeN.setEnabled(true);
+					OvertimeY.setEnabled(true);
+					OvertimeT.setText("0");
+				}
+			}
+		};
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей работы в выходные дни. 
+		ItemListener ItemWeek =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(WeekendY.isSelected()){	
+					WeekendT.setEnabled(true);
+					WeekendN.setEnabled(false);
+				}		
+				else if(WeekendN.isSelected()){	
+					WeekendT.setEnabled(false);
+					WeekendY.setEnabled(false);
+				}		
+				else{
+					WeekendT.setEnabled(false);
+					WeekendN.setEnabled(true);
+					WeekendY.setEnabled(true);
+					WeekendT.setText("0");
+					}
+			}
+		};
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей районного коэффициента.
+		ItemListener ItemDis =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(DistrictCoeffY.isSelected()){	
+					DistrictCoeffT.setEnabled(true);
+					DistrictCoeffN.setEnabled(false);
+				}		
+				else if(DistrictCoeffN.isSelected()){	
+					DistrictCoeffT.setEnabled(false);
+					DistrictCoeffY.setEnabled(false);
+				}		
+				else{
+					DistrictCoeffT.setEnabled(false);
+					DistrictCoeffN.setEnabled(true);
+					DistrictCoeffY.setEnabled(true);
+					DistrictCoeffT.setText("1.15");
+				}
+			}
+		};
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и полей налогового вычета.		
+		ItemListener ItemTax =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(STDTaxationY.isSelected()){	
+					Panel9.setVisible(true);
+					Panel10.setVisible(true);
+					STDTaxationN.setEnabled(false);
+				}		
+				else if(STDTaxationN.isSelected()){	
+					STDTaxationY.setEnabled(false);
+					ChildT.setText("0");
+					InvalidY.setSelected(false);
+				}		
+				else{
+					Panel9.setVisible(false);
+					Panel10.setVisible(false);
+					STDTaxationN.setEnabled(true);
+					STDTaxationY.setEnabled(true);
+					ChildT.setText("0");	
+				}
+			}
+		};
+		//Определяем действия при нажатой кнопке-флажка отвечающей за значение вычета на работника инвалида.		
+		ItemListener ItemInv =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(InvalidY.isSelected()){	
+					InvalidN.setEnabled(false);
+					Eng.invalid = 500;
+				}		
+				else if(InvalidN.isSelected()){	
+					InvalidY.setEnabled(false);
+				}		
+				else{
+					InvalidN.setEnabled(true);
+					InvalidY.setEnabled(true);
+					Eng.invalid = 0;
+				}
+			}
+		};
+		//Определяем действия при нажатой кнопке-флажка отвечающей за отображение панелей и текстовых полей больничного пособия.		
+		ItemListener ItemIll =  new ItemListener(){
+			public void itemStateChanged(ItemEvent e) {
+				if(IllnessY.isSelected()){	
+					Panel13.setVisible(true);
+					Panel14.setVisible(true);
+					Panel16.setVisible(true);
+					IllnessN.setEnabled(false);
+				}		
+				else if(IllnessN.isSelected()){	
+					IllnessY.setEnabled(false);
+				}		
+				else{
+					Panel13.setVisible(false);
+					Panel14.setVisible(false);
+					Panel16.setVisible(false);
+					IllnessY.setEnabled(true);
+					IllnessN.setEnabled(true);
+					YearIT.setText("0");
+					YearIIT.setText("0");
+					ExperienceT.setText("0");
+					IllnessDayT1.setValue(new Date()); 
+					IllnessDayT2.setValue(new Date()); 
+				}
+			}
+		};
+		//Добавляем кнопкам-флашкам и кнопке Start слушателя событий.
+		OvertimeY.addItemListener(ItemOv);
+		OvertimeN.addItemListener(ItemOv);
+		WeekendY.addItemListener(ItemWeek);
+		WeekendN.addItemListener(ItemWeek);
+		DistrictCoeffY.addItemListener(ItemDis);
+		DistrictCoeffN.addItemListener(ItemDis);	
+		STDTaxationY.addItemListener(ItemTax);
+		STDTaxationN.addItemListener(ItemTax);	
+		InvalidY.addItemListener(ItemInv);
+		InvalidN.addItemListener(ItemInv);	
+		IllnessY.addItemListener(ItemIll);
+		IllnessN.addItemListener(ItemIll);
+		Start.addActionListener(Eng);
+		}
+	//Создаем метод main из которого произойдет вход в программу и создаем в нем экземпляр нашего класса CalculatorZP.  
+	public static void main(String[] args){
+	CalculatorZP calc =  new CalculatorZP();	
+}
+}
