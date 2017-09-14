@@ -138,3 +138,164 @@ public class CalculatorZP {
 		Illness2= new JLabel("по:");
 		Start = new JButton("Расчитать");//Присвоение кнопке Start названия.
 		Scroll = new JScrollPane(Panel);//Добавление JScrollPane к панили Panel.
+Body.setLayout(new BorderLayout());//Добавление для панели Body менеджера размещения.
+		Body.add(Scroll,BorderLayout.CENTER);//Добавление полосы прокрутки на панель Body
+		Panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5,10));//Создание невидимой рамки для панели Panel, чтобы задать отступ.
+		Panel.setLayout(new BoxLayout(Panel, BoxLayout.Y_AXIS));//Добавление менеджера размещения по оси Y для панели Panel.
+		//Добавление на главную панель Panel, панелей для ввода данных.
+		Panel.add(Panel12);
+		Panel.add(Panel1);
+		Panel.add(Panel2);
+		Panel.add(Panel3);
+		Panel.add(Panel4);
+		Panel.add(Panel5);
+		Panel.add(Panel7);
+		Panel.add(Panel11);
+		Panel.add(Panel18);
+		//Задание параметров для панелей таких как максимальный размер,заголовок,менеджер размещения элементов,выравнивание,а также добавление элементов.
+		//Panel1 используеться для отображения поля ввода интервала расчетов.
+		Panel1.setMaximumSize(new Dimension(420,60));
+		Panel1.setBorder(new TitledBorder("Интервал Расчета:"));
+		Panel1.setLayout(new FlowLayout(FlowLayout.LEFT,2,10));
+		Panel1.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel1.add(InterLab1);
+		Panel1.add(Int1);
+		Panel1.add(InterLab2);
+		Panel1.add(Int2);
+		//Рanel2 используеться для отображения поля ввода формы расчетов(Повременная,Оклад,Сдельная) .
+		Panel2.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel2.setMaximumSize(new Dimension(420,90));
+		Panel2.setBorder(BorderFactory.createTitledBorder("Форма расчета:"));
+		Panel2.setLayout(new GridLayout(3,3,1,1));
+		Panel2.add(HourlyB);
+		Panel2.add(HourlyT);
+		Panel2.add(SalaryB);
+		Panel2.add(SalaryT);
+		Panel2.add(PieceworkB);
+		Panel2.add(PieceworkT);
+		//Рanel3 используеться для отображения поля ввода часов работы сверхурочно. 
+		Panel3.setLayout(new BoxLayout(Panel3, BoxLayout.Y_AXIS));
+		Panel3.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel3.setMaximumSize(new Dimension(420,91));
+		Panel3.setBorder(BorderFactory.createTitledBorder("Работа в сверхурочное время(ч.):"));
+		Panel3.add(OvertimeY);
+		Panel3.add(OvertimeN);
+		Panel3.add(OvertimeT);
+		//Panel4 исполюзуеться для отображения поля ввода часов работы в выходные дни. 
+		Panel4.setLayout(new BoxLayout(Panel4, BoxLayout.Y_AXIS));
+		Panel4.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel4.setMaximumSize(new Dimension(420,91));
+		Panel4.setBorder(BorderFactory. createTitledBorder("Работа в выходны дни(ч.):"));
+		Panel4.add(WeekendY);
+		Panel4.add(WeekendN);
+		Panel4.add(WeekendT);
+		//Рanel5 исполюзуеться для отображения поля ввода районного коэффициента. 
+		Panel5.setLayout(new BoxLayout(Panel5, BoxLayout.Y_AXIS));
+		Panel5.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel5.setMaximumSize(new Dimension(420,115));
+		Panel5.setBorder(BorderFactory.createTitledBorder("Районный коэффициент:"));
+		Panel5.add(Panel6);
+		Panel5.add(DistrictCoeffT);
+		//Рanel6 исполюзуеться для того чтобы при необходимости изменения районного коэффициента сделать текстовое поле DistrictCoeffT редактируемым. 
+		Panel6.setLayout(new BoxLayout(Panel6, BoxLayout.Y_AXIS));
+		Panel6.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel6.setMaximumSize(new Dimension(410,80));
+		Panel6.setBorder(BorderFactory.createTitledBorder("Изменить районный коэффициент?"));
+		Panel6.add(DistrictCoeffY);
+		Panel6.add(DistrictCoeffN);
+		//Рanel7 Используется для отображения панелей для ввода данных о налоговом вычете.
+		Panel7.setLayout(new BoxLayout(Panel7,BoxLayout.Y_AXIS));
+		Panel7.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel7.setBorder(BorderFactory.createTitledBorder("Налоговый вычет:"));
+		Panel7.add(Panel8);
+		Panel7.add(Panel9);
+		Panel7.add(Panel10);
+		//Panel8 Используется для того чтобы при необходимости добавить данные о налоговом вычете в расчеты.
+		Panel8.setLayout(new BoxLayout(Panel8,BoxLayout.Y_AXIS));
+		Panel8.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel8.setMaximumSize(new Dimension(410,70));
+		Panel8.setBorder(BorderFactory.createTitledBorder("Есть ли налоговый вычет?"));
+		Panel8.add(STDTaxationY);
+		Panel8.add(STDTaxationN);
+		//Panel9 Исполюзуется для отображения текстового поля ChildT и введения в него данных.
+		Panel9.setLayout(new BoxLayout(Panel9,BoxLayout.X_AXIS));
+		Panel9.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel9.setMaximumSize(new Dimension(410,60));
+		Panel9.setBorder(BorderFactory.createTitledBorder("Колличество детей работника:"));
+		Panel9.add(ChildT);
+		//Рanel10 Используется для отображения кнопок-флажков при помощи которых определяется Являеться ли работник инвалидом I или II группы.
+		Panel10.setLayout(new BoxLayout(Panel10,BoxLayout.Y_AXIS));
+		Panel10.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel10.setMaximumSize(new Dimension(410,70));
+		Panel10.setBorder(BorderFactory.createTitledBorder("Являеться ли работник инвалидом I или II группы ?"));
+		Panel10.add(InvalidY);
+		Panel10.add(InvalidN);	
+		//Рanel11 Используется для отображения панелей для ввода данных о больничном пособии работника.
+		Panel11.setLayout(new BoxLayout(Panel11,BoxLayout.Y_AXIS));
+		Panel11.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel11.setBorder(BorderFactory.createTitledBorder("Больничное пособие"));
+		Panel11.add(Panel17);
+		Panel11.add(Panel13);
+		Panel11.add(Panel14);
+		Panel11.add(Panel16);
+		//Panel12 Используеться для отображения текстового поля FIO.
+		Panel12.setLayout(new BoxLayout(Panel12, BoxLayout.Y_AXIS));
+		Panel12.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel12.setMaximumSize(new Dimension(420,45));
+		Panel12.setBorder(BorderFactory.createTitledBorder("Фамилия и инициалы работника:"));
+		Panel12.add(FIO);
+		//Panel13 Используется для отображения надписей и текстовых полей для интерала больничного пособия.
+		Panel13.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel13.setBorder(BorderFactory.createTitledBorder("Дни болезни:"));				
+		Panel13.setLayout(new FlowLayout(FlowLayout.LEFT,2,10));
+		Panel13.setMaximumSize(new Dimension(410,60));
+		Panel13.add(Illness1);
+		Panel13.add(IllnessDayT1);
+		Panel13.add(Illness2);
+		Panel13.add(IllnessDayT2);
+		//Panel14 Используется для отображения текстовых полей и надписей для ввода заплаты за 2 последних года.
+		Panel14.setMaximumSize(new Dimension(410,60));
+		Panel14.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel14.setBorder(BorderFactory.createTitledBorder("Средняя заработная плата:"));
+		Panel14.setLayout(new GridLayout(2,2,1,1));
+		Panel14.add(YearI);
+		Panel14.add(YearIT);
+		Panel14.add(YearII);
+		Panel14.add(YearIIT);
+		//Panel16 Используется для отображения текстового поля ввода страхового стажа.
+		Panel16.setLayout(new FlowLayout(FlowLayout.LEFT,2,10));
+		Panel16.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel16.setBorder(BorderFactory.createTitledBorder("Страховой стаж:"));
+		Panel16.setMaximumSize(new Dimension(410,60));
+		Panel16.add(ExperienceT);
+		//Panel17 Используется для отображения кнопок-флажков при помощи которых определяется расчитывать больничное пособие или нет.  
+		Panel17.setLayout(new BoxLayout(Panel17,BoxLayout.Y_AXIS));
+		Panel17.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel17.setMaximumSize(new Dimension(410,70));
+		Panel17.setBorder(BorderFactory.createTitledBorder("Расчитать больничное пособие?"));
+		Panel17.add(IllnessY);
+		Panel17.add(IllnessN);
+		//Panel18 Используется для отображения кнопки Start.
+		Panel18.setMaximumSize(new Dimension(420,60));
+		Panel18.setLayout(new FlowLayout(FlowLayout.LEFT,2,5));
+		Panel18.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		Panel18.add(Start);
+		//Задаем параметры для окна
+		Frame.setContentPane(Body);//Добавляем панель Body на фрейм
+		Frame.setSize(485, 620);//Задаем размер фрейма.
+		Frame.setLocationRelativeTo(null);//Задаем место расположения окна(центер экрана).
+		Frame.setVisible(true);//Определяем окно как видимое.
+		//Определяем текстовые поля и элементы как скрытые.
+		OvertimeT.setEnabled(false);
+		WeekendT.setEnabled(false);
+		DistrictCoeffT.setEnabled(false);
+		Panel4.setVisible(false);
+		Panel3.setVisible(false);
+		Panel9.setVisible(false);
+		Panel10.setVisible(false);
+		Panel13.setVisible(false);
+		Panel14.setVisible(false);
+		Panel16.setVisible(false);
+		HourlyT.setEnabled(false);
+		SalaryT.setEnabled(false);
+		PieceworkT.setEnabled(false);
